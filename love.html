@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Her ❤️</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle at center,#7a001a 0%,#2b0006 60%,#000 100%);
+font-family:Arial;
+color:#f8cbd5;
+overflow:hidden;
+}
+
+.card{
+background:#3a000b;
+padding:35px;
+width:420px;
+max-height:85vh;
+overflow-y:auto;
+border-radius:25px;
+text-align:center;
+box-shadow:0 0 40px rgba(255,0,90,0.4);
+}
+
+h2{color:#ff5a8a;}
+button{
+padding:10px 20px;
+border-radius:20px;
+border:1px solid #ff5a8a;
+background:transparent;
+color:#ff5a8a;
+cursor:pointer;
+margin:8px;
+}
+button:hover{background:#ff5a8a;color:white;}
+.top-img{width:140px;border-radius:15px;margin-bottom:15px;}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:15px;
+}
+
+.heart{
+background:#4a0010;
+font-size:40px;
+display:flex;
+justify-content:center;
+align-items:center;
+height:120px;
+border-radius:15px;
+cursor:pointer;
+transition:0.3s;
+}
+.heart:hover{background:#5e0016;}
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:10;
+}
+.modal img{
+max-width:350px;
+border-radius:20px;
+}
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.6);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:20;
+}
+.popup-content{
+background:#3a000b;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 30px rgba(255,0,90,0.6);
+width:350px;
+}
+
+.puzzle{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:4px;
+width:300px;
+height:300px;
+margin:20px auto;
+}
+.tile{
+background-image:url('puzzle.jpeg');
+background-size:300px 300px;
+cursor:pointer;
+}
+.tile.empty{background:none;}
+
+.reason{
+background:#4a0010;
+padding:10px;
+border-radius:15px;
+margin:8px 0;
+text-align:left;
+}
+.reason span{color:#ff5a8a;font-weight:bold;margin-right:8px;}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="app"></div>
+
+<!-- Image Modal -->
+<div class="modal" id="imageModal" onclick="closeImage()">
+<img id="modalImg">
+</div>
+
+<!-- TOO LATE Popup -->
+<div class="popup" id="popupBox">
+<div class="popup-content">
+<h2>TOO LATE!</h2>
+<p>The "Stuck With Me Forever" contract has already been signed in heart-ink. No take-backs allowed! 🥲</p>
+<button onclick="closePopup()">Go Back to Us ❤️</button>
+</div>
+</div>
+
+<script>
+
+/* PAGE 1 */
+function page1(){
+document.getElementById("app").innerHTML=
+'<img src="dudu1.gif" class="top-img">'+
+'<h2>Will you be my Valentine?</h2>'+
+'<p>Hey baby, every day with you feels like a dream. You are the person I want to annoy for the rest of my life. So will you make me the luckiest person and say yes? ❤️</p>'+
+'<button onclick="page2()">Yes</button>'+
+'<button id="noBtn">No</button>';
+
+var scale=1;
+document.getElementById("noBtn").onmouseover=function(){
+this.style.position="relative";
+this.style.left=Math.random()*200-100+"px";
+this.style.top=Math.random()*200-100+"px";
+scale+=0.1;
+document.querySelector("button").style.transform="scale("+scale+")";
+};
+}
+
+/* PAGE 2 */
+function page2(){
+document.getElementById("app").innerHTML=
+'<img src="dudu2.gif" class="top-img">'+
+'<h2>Good choice, baby! ✨</h2>'+
+'<p>Now you are stuck with me forever! There are no refunds, no exchanges, and definitely no escapes. I love you! ❤️</p>'+
+'<p>Do you want to change your mind?</p>'+
+'<button onclick="showPopup()">Yes</button>'+
+'<button onclick="page3()">Read my Letter →</button>';
+}
+
+/* POPUP FUNCTIONS */
+function showPopup(){
+document.getElementById("popupBox").style.display="flex";
+}
+function closePopup(){
+document.getElementById("popupBox").style.display="none";
+}
+
+/* LETTER PAGE */
+function page3(){
+document.getElementById("app").innerHTML=
+'<h2>To My Dearest...</h2>'+
+'<p>My Love,<br><br>Thank you for being the most amazing person in my life. You make every ordinary moment feel like a fairy tale. I am so lucky to have you by my side.<br><br>Forever and always,<br>Your BF ❤️</p>'+
+'<button onclick="page4()">Our Memories →</button>';
+}
+
+/* MEMORIES PAGE */
+function page4(){
+document.getElementById("app").innerHTML=
+'<h2>Look at her 📸</h2>'+
+'<div class="grid">'+
+'<div class="heart" onclick="openImage(\'img1.jpeg\')">❤️</div>'+
+'<div class="heart" onclick="openImage(\'img2.jpeg\')">❤️</div>'+
+'<div class="heart" onclick="openImage(\'img3.jpeg\')">❤️</div>'+
+'<div class="heart" onclick="openImage(\'img4.jpeg\')">❤️</div>'+
+'</div>'+
+'<button onclick="page5()">Play My Puzzle →</button>';
+}
+
+/* IMAGE POPUP */
+function openImage(src){
+document.getElementById("modalImg").src=src;
+document.getElementById("imageModal").style.display="flex";
+}
+function closeImage(){
+document.getElementById("imageModal").style.display="none";
+}
+
+/* PUZZLE */
+var board=[0,1,2,3,4,5,6,7,8];
+
+function page5(){
+document.getElementById("app").innerHTML=
+'<h2>Fix My Heart 🧩</h2>'+
+'<div class="puzzle" id="puzzle"></div>'+
+'<button onclick="shuffle()">Shuffle</button>'+
+'<button onclick="page6()">Why I Love You →</button>';
+renderPuzzle();
+}
+
+function renderPuzzle(){
+var puzzle=document.getElementById("puzzle");
+puzzle.innerHTML="";
+for(var i=0;i<9;i++){
+var tile=document.createElement("div");
+if(board[i]==8){
+tile.className="tile empty";
+}else{
+tile.className="tile";
+tile.style.backgroundPosition=(-(board[i]%3)*100)+"px "+(-Math.floor(board[i]/3)*100)+"px";
+}
+tile.onclick=(function(index){
+return function(){move(index);};
+})(i);
+puzzle.appendChild(tile);
+}
+}
+
+function move(i){
+var empty=board.indexOf(8);
+var row=Math.floor(i/3);
+var col=i%3;
+var erow=Math.floor(empty/3);
+var ecol=empty%3;
+
+if((row==erow && Math.abs(col-ecol)==1) ||
+   (col==ecol && Math.abs(row-erow)==1)){
+var temp=board[i];
+board[i]=board[empty];
+board[empty]=temp;
+renderPuzzle();
+}
+}
+
+function shuffle(){
+board.sort(function(){return 0.5-Math.random();});
+renderPuzzle();
+}
+
+/* REASONS PAGE */
+function page6(){
+document.getElementById("app").innerHTML=
+'<h2>10 Reasons Why... ❤️</h2>'+
+'<div class="reason"><span>01</span>You are my safest place in this big world.</div>'+
+'<div class="reason"><span>02</span>Your smile is literally the best thing I have ever seen.</div>'+
+'<div class="reason"><span>03</span>How you always know how to make me laugh.</div>'+
+'<div class="reason"><span>04</span>The way you care about the little details.</div>'+
+'<div class="reason"><span>05</span>You are the most beautiful person, inside and out.</div>'+
+'<div class="reason"><span>06</span>How much you support me in everything I do.</div>'+
+'<div class="reason"><span>07</span>The feeling of your hand holding mine.</div>'+
+'<div class="reason"><span>08</span>You understand me like no one else does.</div>'+
+'<div class="reason"><span>09</span>Your kindness towards everyone around you.</div>'+
+'<div class="reason"><span>10</span>Because loving you is the easiest thing I have ever done.</div>';
+}
+
+/* START */
+page1();
+
+</script>
+
+</body>
+</html>
